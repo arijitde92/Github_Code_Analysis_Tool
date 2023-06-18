@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Find Most Complex Repository</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+	</head>
+	<body>        
+		<div class="login">
+			<div class="navtop">				
+				<h1 style="color: beige;">Github Automated Analysis</h1>					
+				
+			</div>
+			<h1>Enter Github Profile URL</h1>			
+			<form method="post">
+				<label for="repo">
+					<i class="fas fa-user"></i>
+				</label>
+				<input type="text" name="repo" placeholder="https://github.com/username" id="repo" required>
+
+				{% if valid_url == False %}
+					<p style="color:red;">Enter proper URL</p>
+				{% else %}
+					<p>Analysing Repositories</p>
+				{% endif %}
+				<input type="submit" value="Find">
+			</form>
+
+			{% if results == True %}
+				<h3>Repositories</h3>
+				{% for repo in repositories %}
+					<p>{{repo}}</p>
+				{% endfor %}
+				<h3>Most Complex Repository:</h3>
+				<p>{{ most_complex_repo }}</p>
+			{% endif %}
+		</div>
+		
+	</body>
+</html>
