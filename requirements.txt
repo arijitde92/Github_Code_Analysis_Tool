@@ -1,0 +1,9 @@
+beautifulsoup4==4.12.2
+Flask==2.3.2
+GitPython==3.1.31
+langchain==0.0.205
+Requests==2.31.0
+tqdm==4.65.0
+validators==0.20.0
+openai==0.27.8
+deeplake==3.6.3

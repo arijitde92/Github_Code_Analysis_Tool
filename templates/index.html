@@ -21,17 +21,21 @@
 
 				{% if valid_url == False %}
 					<p style="color:red;">Enter proper URL</p>
-				{% else %}
+				{% elif valid_url == True %}
 					<p>Analysing Repositories</p>
+				{% else %}
+					<p></p>
 				{% endif %}
 				<input type="submit" value="Find">
 			</form>
 
 			{% if results == True %}
 				<h3>Repositories</h3>
+				<ol>
 				{% for repo in repositories %}
-					<p>{{repo}}</p>
+					<li>{{ repo }}</li>
 				{% endfor %}
+				</ol>
 				<h3>Most Complex Repository:</h3>
 				<p>{{ most_complex_repo }}</p>
 			{% endif %}

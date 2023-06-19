@@ -1,9 +1,21 @@
+# Importing required libraries
 import requests
 from typing import Union
 from bs4 import BeautifulSoup as BS
 
 
 def get_repository_links(user_url: str) -> Union[list, None]:
+    """
+    The get_repository_links function is designed to get the list of GitHub repository links.
+    Parameters
+    ----------
+    user_url : str
+       Github url.
+    Returns
+    ----------
+    repo_links : list
+        List of repositories.
+    """
     repo_links = list()
     user_name = user_url.split('?')[0].split('/')[-1]
     response = requests.get(user_url, headers={'User-Agent': "Chrome/51.0.2704.106"})
@@ -26,33 +38,7 @@ def get_repository_links(user_url: str) -> Union[list, None]:
     return repo_links
 
 
-def get_all_file_links(repo_link: str, file_links: list) -> Union[list, None]:
-    print("Current file links length:", len(file_links))
-    response = requests.get(repo_link, headers={'User-Agent': "Chrome/51.0.2704.106"})
-    if response.status_code != 200:
-        print("Error Occurred: Response Code: ", response.status_code)
-        return None
-    soup = BS(response.content, 'html.parser')
-    # if this is the main repository page, then our desired links have class 'js-navigation-open' and 'Link--primary'
-    # else links inside each folder contains only class 'Link--primary'
-    if len(repo_link.split('/')) <= 5:  # the main page url has 5 parts when split by '/', other pages have > 5 parts
-        anchor_tags = soup.select('a.js-navigation-open.Link--primary')
-    else:
-        anchor_tags = soup.select('a.Link--primary')
-    # Process the anchor tags
-    for a_tag in anchor_tags:
-        # Link__StyledLink-sc-14289xe-0 dSlCya
-        # if a_tag['class'][0] == 'Link__StyledLink-sc-14289xe-0' and a_tag['class'][1] == 'dSlCya'
-        if len(a_tag.attrs['class']) <=2:
-            href = a_tag.attrs['href']
-            link = 'https://github.com' + href
-            # if link contains 'blob' in url then it is a link to a file, hence add this link to 'file_links'
-            if 'blob' in link:
-                file_links.append(link)
-            else:
-                get_all_file_links(link, file_links)
-
-
+# Main function
 if __name__ == "__main__":
     # url = input("Enter URL:") + "?tab=repositories"
     url = 'https://github.com/hhhrrrttt222111' + "?tab=repositories"
