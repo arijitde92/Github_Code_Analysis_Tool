@@ -1,18 +1,12 @@
 # Importing required libraries
 import os
 import shutil
-from time import sleep
 
 import requests
-import fnmatch
 import base64
-from typing import Union, Tuple, List
-from git import Repo
-from langchain import OpenAI
-from langchain.chains.question_answering import load_qa_chain
+from typing import Tuple
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
-from langchain.document_loaders import GitLoader
 from langchain.schema import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
